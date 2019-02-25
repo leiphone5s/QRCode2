@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lei.qrcode.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/design_default_color_primary_dark"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/resetpwd_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/resetpwd_oldpwd"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="原密码："/>
+    <EditText
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:inputType="textPassword"
+        android:background="@null"
+        android:ems="10"
+        android:id="@+id/resetpwd_edit_pwd_old"
+        android:hint="请输入原密码" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/darker_gray"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:gravity="left"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="3"
+            android:id="@+id/resetpwd_newpwd"
+            android:gravity="left|center_vertical"
+            android:layout_gravity="left"
+            android:textSize="18dp"
+            android:text="新密码："/>
+
+    <EditText
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_weight="6"
+        android:inputType="textPassword"
+        android:gravity="left|center_vertical"
+        android:background="@null"
+        android:ems="10"
+        android:id="@+id/resetpwd_edit_pwd_new"
+        android:layout_below="@+id/resetpwd_edit_pwd_old"
+        android:layout_centerHorizontal="true"
+        android:hint="请输入新密码"
+        />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/resetTextweak"
+                android:layout_marginLeft="20dp"
+                android:text="弱"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/resetTextmid"
+                android:text="中"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="fill_parent"
+                android:id="@+id/resetTextstr"
+                android:text="强"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/darker_gray"
+        android:text="TextView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/resetpwd_surepwd"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="确认新密码："/>
+    <EditText
+        android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:inputType="textPassword"
+        android:background="@null"
+        android:ems="10"
+        android:id="@+id/resetpwd_edit_pwd_check"
+        android:hint="请确认新密码" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/darker_gray"
+        android:text="TextView" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:id="@+id/resetpwd_btn_sure"
+        android:textSize="20dp"
+        android:onClick="sure_to_reset"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_shape" />
+
+
+</LinearLayout>

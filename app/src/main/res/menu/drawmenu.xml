@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:id="@+id/absensewarn"
+    android:title="    课程提醒"/>
+    <item
+        android:id="@+id/absenseconstant"
+        android:title="    签到时况" />
+    <item
+        android:id="@+id/absenserecord"
+        android:title="    考勤记录" />
+    <item
+        android:id="@+id/personsettings"
+        android:title="    个人设置" />
+    <item
+        android:id="@+id/aboutus"
+        android:title="    关于我们"/>
+</menu>
+
+

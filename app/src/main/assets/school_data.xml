@@ -1,0 +1,115 @@
+<root>
+  <school name="河南理工大学">
+    <depart name="测绘与国土信息工程学院">
+      <class name="人文地理与城乡规划专业" classcode="246000" />
+      <class name="测绘工程专业" classcode="246000" />
+      <class name="地理信息科学专业" classcode="246000" />
+      <class name="土地资源管理专业" classcode="246000" />
+      <class name="遥感科学与技术专业" classcode="246000" />
+      <class name="自然地理与资源环境专业" classcode="246000" />
+    </depart>
+    <depart name="电气工程与自动化学院">
+      <class name="电气工程及其自动化专业" classcode="233000" />
+      <class name="电气工程及其自动化专业（中外合作办学）" classcode="233000" />
+      <class name="自动化专业" classcode="233000" />
+      <class name="轨道交通信号与控制专业" classcode="233000" />
+      <class name="测控技术与仪器专业（自动化方向）" classcode="233000" />
+    </depart>
+    <depart name="机械与动力工程学院">
+      <class name="机械设计制造及其自动化" classcode="236000" />
+      <class name="能源与动力工程" classcode="236000" />
+      <class name="测控技术与仪器" classcode="236000" />
+      <class name="车辆工程专业简介" classcode="236000" />
+    </depart>
+    <depart name="土木工程学院">
+      <class name="土木工程" classcode="238000" />
+      <class name="工程管理" classcode="238000" />
+      <class name="理论与应用力学" classcode="238000" />
+      <class name="建筑环境与设备工程" classcode="238000" />
+    </depart>
+  </school>
+
+  <school name="河南科技大学">
+    <depart name="计算机科学与技术学院">
+      <class name="计算机科学与技术专业" classcode="100000" />
+      <class name="信息管理与信息系统" classcode="100000" />
+      <class name="软件工程专业" classcode="100000" />
+      <class name="网络工程专业" classcode="100000" />
+      <class name="物联网工程专业" classcode="100000" />
+      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
+      <class name="计算机应用技术专业（专科）" classcode="100000" />
+      <class name="计算机网络技术专业（专科）" classcode="100000" />
+      <class name="软件技术专业（专科）" classcode="100000" />
+      <class name="计算机信息管理专业（专科）" classcode="100000" />
+    </depart>
+    <depart name="机械与动力工程学院">
+      <class name="机械设计制造及其自动化" classcode="236000" />
+      <class name="能源与动力工程" classcode="236000" />
+      <class name="测控技术与仪器" classcode="236000" />
+      <class name="车辆工程专业简介" classcode="236000" />
+    </depart>
+    <depart name="土木工程学院">
+      <class name="土木工程" classcode="238000" />
+      <class name="工程管理" classcode="238000" />
+      <class name="理论与应用力学" classcode="238000" />
+      <class name="建筑环境与设备工程" classcode="238000" />
+    </depart>
+  </school>
+
+  <school name="河南工业大学">
+
+    <depart name="机械与动力工程学院">
+      <class name="机械设计制造及其自动化" classcode="236000" />
+      <class name="能源与动力工程" classcode="236000" />
+      <class name="测控技术与仪器" classcode="236000" />
+      <class name="车辆工程专业简介" classcode="236000" />
+    </depart>
+    <depart name="计算机科学与技术学院">
+      <class name="计算机科学与技术专业" classcode="100000" />
+      <class name="信息管理与信息系统" classcode="100000" />
+      <class name="软件工程专业" classcode="100000" />
+      <class name="网络工程专业" classcode="100000" />
+      <class name="物联网工程专业" classcode="100000" />
+      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
+      <class name="计算机应用技术专业（专科）" classcode="100000" />
+      <class name="计算机网络技术专业（专科）" classcode="100000" />
+      <class name="软件技术专业（专科）" classcode="100000" />
+      <class name="计算机信息管理专业（专科）" classcode="100000" />
+    </depart>
+    <depart name="土木工程学院">
+      <class name="土木工程" classcode="238000" />
+      <class name="工程管理" classcode="238000" />
+      <class name="理论与应用力学" classcode="238000" />
+      <class name="建筑环境与设备工程" classcode="238000" />
+    </depart>
+  </school>
+
+
+  <school name="河南农业大学">
+    <depart name="土木工程学院">
+      <class name="土木工程" classcode="238000" />
+      <class name="工程管理" classcode="238000" />
+      <class name="理论与应用力学" classcode="238000" />
+      <class name="建筑环境与设备工程" classcode="238000" />
+    </depart>
+    <depart name="机械与动力工程学院">
+      <class name="机械设计制造及其自动化" classcode="236000" />
+      <class name="能源与动力工程" classcode="236000" />
+      <class name="测控技术与仪器" classcode="236000" />
+      <class name="车辆工程专业简介" classcode="236000" />
+    </depart>
+    <depart name="计算机科学与技术学院">
+      <class name="计算机科学与技术专业" classcode="100000" />
+      <class name="信息管理与信息系统" classcode="100000" />
+      <class name="软件工程专业" classcode="100000" />
+      <class name="网络工程专业" classcode="100000" />
+      <class name="物联网工程专业" classcode="100000" />
+      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
+      <class name="计算机应用技术专业（专科）" classcode="100000" />
+      <class name="计算机网络技术专业（专科）" classcode="100000" />
+      <class name="软件技术专业（专科）" classcode="100000" />
+      <class name="计算机信息管理专业（专科）" classcode="100000" />
+    </depart>
+
+  </school>
+</root>
