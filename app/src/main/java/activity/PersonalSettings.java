@@ -1,33 +1,20 @@
-package view;
+package activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.zxing.WriterException;
 import com.lei.qrcode.LoginActivity;
-import com.lei.qrcode.MainActivity;
 import com.lei.qrcode.R;
-import com.yanzhenjie.permission.Action;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-import com.yzq.zxinglibrary.android.CaptureActivity;
-import com.yzq.zxinglibrary.encode.CodeCreator;
 
 import java.io.File;
-import java.util.List;
 
 public class PersonalSettings extends AppCompatActivity implements View.OnClickListener{
 
@@ -117,9 +104,6 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
     }
 
         private void logout () {           //注销
-            SharedPreferences pref = getSharedPreferences("userInfo", MODE_PRIVATE);
-            String studentid = pref.getString("STUDENTID", "eq"); //获取当前输入的用户名和密码信息
-            String userPwd = pref.getString("PASSWORD", "123456");
             SharedPreferences.Editor editor = login_sp.edit();
             editor.clear();
             editor.commit();

@@ -1,4 +1,4 @@
-package view;
+package activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,7 +39,7 @@ public class Resetpwd extends AppCompatActivity {
     private TextView mResetWeak,mResetMid,mResetStr;
     //服务端地址
     final String resetpwdUrl = "/user/repassword";
-    private SharedPreferences login_sp;
+    private SharedPreferences reset_sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class Resetpwd extends AppCompatActivity {
         mResetPwdtoolbar.setTitle("重置密码");
         setSupportActionBar(mResetPwdtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        login_sp = getSharedPreferences("userInfo", 0);
+        reset_sp = getSharedPreferences("userInfo", 0);
 
         mSureButton.setOnClickListener(m_resetpwd_Listener);      //注册界面两个按钮的监听事件
 
@@ -221,9 +221,8 @@ public class Resetpwd extends AppCompatActivity {
     };
     public void resetpwd_check() {                                //确认按钮的监听事件
         if (isUserNameAndPwdValid()) {
-            SharedPreferences pref = getSharedPreferences("userInfo",MODE_PRIVATE);//返回1说明用户名和密码均正确
             //保存学号和密码
-            final String studentId = pref.getString("STUDENTID","");
+            final String studentId = reset_sp.getString("STUDENTID","");
             String userPwd_old = mPwd_old.getText().toString().trim();
             final String userPwd_new = mPwd_new.getText().toString().trim();
             String userPwdCheck = mPwdCheck.getText().toString().trim();
@@ -249,7 +248,7 @@ public class Resetpwd extends AppCompatActivity {
                                 Toast.makeText(Resetpwd.this, msg, Toast.LENGTH_SHORT).show();//登录提示
                                 if (data != null && data.equals("true")) {
                                     //保存学号和密码
-                                    SharedPreferences.Editor editor = login_sp.edit();
+                                    SharedPreferences.Editor editor = reset_sp.edit();
                                     editor.putString("STUDENTID", studentId);
                                     editor.putString("PASSWORD",userPwd_new);
                                     editor.commit();

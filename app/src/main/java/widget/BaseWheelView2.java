@@ -4,11 +4,6 @@ import android.app.Activity;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-import model.ClassModel;
-import model.DepartmentModel;
-import model.FacultyModel;
-import service.XmlParserHandler;
-
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +12,12 @@ import java.util.Map;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-public class BaseWheelView extends Activity {
+import model.ClassModel;
+import model.DepartmentModel;
+import model.FacultyModel;
+import service.XmlParserHandler;
+
+public class BaseWheelView2 extends Activity {
 
 	/**
 	 * 所有省
@@ -30,30 +30,15 @@ public class BaseWheelView extends Activity {
 	/**
 	 * key - 系别 values - 班级
 	 */
-	protected Map<String, String[]> mClassDatasMap = new HashMap<String, String[]>();
 
 	/**
-	 * key - 班级 values -  班号
-	 */
-	protected Map<String, String> mClasscodeDatasMap = new HashMap<String, String>();
-
-	/**
-	 * 当前省的名称
+	 * 当前学院的名称
 	 */
 	protected String mCurrentFacultyName;
 	/**
-	 * 当前市的名称
+	 * 当前系别的名称
 	 */
 	protected String mCurrentDepartName;
-	/**
-	 * 当前区的名称
-	 */
-	protected String mCurrentClassName ="";
-
-	/**
-	 * 当前区的邮政编码
-	 */
-	protected String mCurrentClassCode ="";
 
 	/**
 	 * 解析省市区的XML数据
@@ -64,7 +49,7 @@ public class BaseWheelView extends Activity {
 		List<FacultyModel> facultyList = null;
 		AssetManager asset = getAssets();
 		try {
-			InputStream input = asset.open("school_data.xml");
+			InputStream input = asset.open("teacher_data.xml");
 			// 创建一个解析xml的工厂对象
 			SAXParserFactory spf = SAXParserFactory.newInstance();
 			// 解析xml
@@ -74,43 +59,26 @@ public class BaseWheelView extends Activity {
 			input.close();
 			// 获取解析出来的数据
 			facultyList = handler.getDataList();
-			//*/ 初始化默认选中的省、市、区
+			//*/ 初始化默认选中的学院、系别
 			if (facultyList!= null && !facultyList.isEmpty()) {
 				mCurrentFacultyName = facultyList.get(0).getName();
 				List<DepartmentModel> departList = facultyList.get(0).getDepartList();
 				if (departList!= null && !departList.isEmpty()) {
 					mCurrentDepartName = departList.get(0).getName();
-					List<ClassModel> classList = departList.get(0).getClassList();
-					mCurrentClassName = classList.get(0).getName();
-					mCurrentClassCode = classList.get(0).getClasscode();
 				}
 			}
 			//*/
 			mFacultyDatas = new String[facultyList.size()];
 			for (int i=0; i< facultyList.size(); i++) {
-				// 遍历所有省的数据
+				// 遍历所有学院的数据
 				mFacultyDatas[i] = facultyList.get(i).getName();
 				List<DepartmentModel> departList = facultyList.get(i).getDepartList();
 				String[] departNames = new String[departList.size()];
 				for (int j=0; j< departList.size(); j++) {
-					// 遍历省下面的所有市的数据
+					// 遍历学院下面的所有系别的数据
 					departNames[j] = departList.get(j).getName();
-					List<ClassModel> classList = departList.get(j).getClassList();
-					String[] classNameArray = new String[classList.size()];
-					ClassModel[] classArray = new ClassModel[classList.size()];
-					for (int k=0; k<classList.size(); k++) {
-						// 遍历市下面所有区/县的数据
-						ClassModel classModel = new ClassModel(classList.get(k).getName());
-
-						mClasscodeDatasMap.put(classList.get(k).getName(), classList.get(k).getClasscode());
-						classArray[k] = classModel;
-						classNameArray[k] = classModel.getName();
-						Log.d("feng","classModel.getName() = "+classModel.getName());
-					}
-					// 市-区/县的数据，保存到mDistrictDatasMap
-					mClassDatasMap.put(departNames[j], classNameArray);
 				}
-				// 省-市的数据，保存到mCitisDatasMap
+				// 学院-系别的数据，保存到mDepartDatasMap
 				mDepartDatasMap.put(facultyList.get(i).getName(), departNames);
 			}
 		} catch (Throwable e) {

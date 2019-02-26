@@ -159,50 +159,7 @@
         android:background="@null"
         android:hint="请确认您的密码" />
     </LinearLayout>
-    <TextView
-        android:id="@+id/TextView07"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp">
-        <!--<TextView-->
-            <!--android:drawableRight="@android:drawable/btn_dropdown"-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="60dp"-->
-            <!--android:id="@+id/resetpwd_edit_universe_new"-->
-            <!--android:background="@null"-->
-            <!--android:gravity="left|center"-->
-            <!--android:textSize="18dp"-->
-            <!--android:text="请选择您的学校（必选）" />-->
-        <android.support.constraint.ConstraintLayout
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.lei.qrcode.RegisterActivity">
 
-            <TextView
-                android:id="@+id/register_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="请点击选择您的系别和班级"
-                android:layout_marginLeft="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </android.support.constraint.ConstraintLayout>
-    </LinearLayout>
     <TextView
         android:id="@+id/TextView08"
         android:layout_width="match_parent"
@@ -243,16 +200,72 @@
             android:layout_marginLeft="20dp"
             android:checked="true"
             android:textSize="20dp"
-            android:text="教师" />
+            android:text="学生" />
 
         <RadioButton
             android:id="@+id/radioButton2"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="学生" />
+            android:text="教师" />
     </RadioGroup>
     </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/TextView07"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/darker_gray"
+        android:text="TextView" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
+        <!--<TextView-->
+        <!--android:drawableRight="@android:drawable/btn_dropdown"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:id="@+id/resetpwd_edit_universe_new"-->
+        <!--android:background="@null"-->
+        <!--android:gravity="left|center"-->
+        <!--android:textSize="18dp"-->
+        <!--android:text="请选择您的学校（必选）" />-->
+        <android.support.constraint.ConstraintLayout
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.lei.qrcode.RegisterActivity">
+
+            <TextView
+                android:id="@+id/register_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="请点击选择您的系别和班级"
+                android:layout_marginRight="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TextView09"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@android:color/darker_gray"
+        android:text="TextView" />
 
     <Button
         android:id="@+id/register_btn_sure"

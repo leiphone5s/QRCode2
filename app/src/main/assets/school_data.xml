@@ -1,115 +1,123 @@
 <root>
-  <school name="河南理工大学">
-    <depart name="测绘与国土信息工程学院">
-      <class name="人文地理与城乡规划专业" classcode="246000" />
-      <class name="测绘工程专业" classcode="246000" />
-      <class name="地理信息科学专业" classcode="246000" />
-      <class name="土地资源管理专业" classcode="246000" />
-      <class name="遥感科学与技术专业" classcode="246000" />
-      <class name="自然地理与资源环境专业" classcode="246000" />
+  <faculty name="测绘与国土信息工程学院">
+    <depart name="人文地理与城乡规划专业">
+        <class name="人文地理1班"/>
+        <class name="人文地理2班"/>
+        <class name="人文地理3班"/>
+        <class name="人文地理4班"/>
     </depart>
-    <depart name="电气工程与自动化学院">
-      <class name="电气工程及其自动化专业" classcode="233000" />
-      <class name="电气工程及其自动化专业（中外合作办学）" classcode="233000" />
-      <class name="自动化专业" classcode="233000" />
-      <class name="轨道交通信号与控制专业" classcode="233000" />
-      <class name="测控技术与仪器专业（自动化方向）" classcode="233000" />
+    <depart name="测绘工程专业" >
+        <class name="测绘工程1班"/>
+        <class name="测绘工程2班"/>
+        <class name="测绘工程3班"/>
+        <class name="测绘工程4班"/>
     </depart>
-    <depart name="机械与动力工程学院">
-      <class name="机械设计制造及其自动化" classcode="236000" />
-      <class name="能源与动力工程" classcode="236000" />
-      <class name="测控技术与仪器" classcode="236000" />
-      <class name="车辆工程专业简介" classcode="236000" />
+    <depart name="地理信息科学专业" >
+        <class name="地理信息1班"/>
+        <class name="地理信息2班"/>
+        <class name="地理信息3班"/>
+        <class name="地理信息4班"/>
     </depart>
-    <depart name="土木工程学院">
-      <class name="土木工程" classcode="238000" />
-      <class name="工程管理" classcode="238000" />
-      <class name="理论与应用力学" classcode="238000" />
-      <class name="建筑环境与设备工程" classcode="238000" />
+    <depart name="土地资源管理专业" >
+          <class name="土地资源1班"/>
+          <class name="土地资源2班"/>
+          <class name="土地资源3班"/>
+          <class name="土地资源4班"/>
     </depart>
-  </school>
-
-  <school name="河南科技大学">
-    <depart name="计算机科学与技术学院">
-      <class name="计算机科学与技术专业" classcode="100000" />
-      <class name="信息管理与信息系统" classcode="100000" />
-      <class name="软件工程专业" classcode="100000" />
-      <class name="网络工程专业" classcode="100000" />
-      <class name="物联网工程专业" classcode="100000" />
-      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
-      <class name="计算机应用技术专业（专科）" classcode="100000" />
-      <class name="计算机网络技术专业（专科）" classcode="100000" />
-      <class name="软件技术专业（专科）" classcode="100000" />
-      <class name="计算机信息管理专业（专科）" classcode="100000" />
+    <depart name="遥感科学与技术专业"  >
+        <class name="遥感科学1班"/>
+        <class name="遥感科学2班"/>
+        <class name="遥感科学3班"/>
+        <class name="遥感科学4班"/>
     </depart>
-    <depart name="机械与动力工程学院">
-      <class name="机械设计制造及其自动化" classcode="236000" />
-      <class name="能源与动力工程" classcode="236000" />
-      <class name="测控技术与仪器" classcode="236000" />
-      <class name="车辆工程专业简介" classcode="236000" />
+    <depart name="自然地理与资源环境专业">
+          <class name="资源环境1班"/>
+          <class name="资源环境2班"/>
+          <class name="资源环境3班"/>
+          <class name="资源环境4班"/>
     </depart>
-    <depart name="土木工程学院">
-      <class name="土木工程" classcode="238000" />
-      <class name="工程管理" classcode="238000" />
-      <class name="理论与应用力学" classcode="238000" />
-      <class name="建筑环境与设备工程" classcode="238000" />
-    </depart>
-  </school>
-
-  <school name="河南工业大学">
-
-    <depart name="机械与动力工程学院">
-      <class name="机械设计制造及其自动化" classcode="236000" />
-      <class name="能源与动力工程" classcode="236000" />
-      <class name="测控技术与仪器" classcode="236000" />
-      <class name="车辆工程专业简介" classcode="236000" />
-    </depart>
-    <depart name="计算机科学与技术学院">
-      <class name="计算机科学与技术专业" classcode="100000" />
-      <class name="信息管理与信息系统" classcode="100000" />
-      <class name="软件工程专业" classcode="100000" />
-      <class name="网络工程专业" classcode="100000" />
-      <class name="物联网工程专业" classcode="100000" />
-      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
-      <class name="计算机应用技术专业（专科）" classcode="100000" />
-      <class name="计算机网络技术专业（专科）" classcode="100000" />
-      <class name="软件技术专业（专科）" classcode="100000" />
-      <class name="计算机信息管理专业（专科）" classcode="100000" />
-    </depart>
-    <depart name="土木工程学院">
-      <class name="土木工程" classcode="238000" />
-      <class name="工程管理" classcode="238000" />
-      <class name="理论与应用力学" classcode="238000" />
-      <class name="建筑环境与设备工程" classcode="238000" />
-    </depart>
-  </school>
-
-
-  <school name="河南农业大学">
-    <depart name="土木工程学院">
-      <class name="土木工程" classcode="238000" />
-      <class name="工程管理" classcode="238000" />
-      <class name="理论与应用力学" classcode="238000" />
-      <class name="建筑环境与设备工程" classcode="238000" />
-    </depart>
-    <depart name="机械与动力工程学院">
-      <class name="机械设计制造及其自动化" classcode="236000" />
-      <class name="能源与动力工程" classcode="236000" />
-      <class name="测控技术与仪器" classcode="236000" />
-      <class name="车辆工程专业简介" classcode="236000" />
-    </depart>
-    <depart name="计算机科学与技术学院">
-      <class name="计算机科学与技术专业" classcode="100000" />
-      <class name="信息管理与信息系统" classcode="100000" />
-      <class name="软件工程专业" classcode="100000" />
-      <class name="网络工程专业" classcode="100000" />
-      <class name="物联网工程专业" classcode="100000" />
-      <class name="计算机科学与技术（中外合作办学）" classcode="100000" />
-      <class name="计算机应用技术专业（专科）" classcode="100000" />
-      <class name="计算机网络技术专业（专科）" classcode="100000" />
-      <class name="软件技术专业（专科）" classcode="100000" />
-      <class name="计算机信息管理专业（专科）" classcode="100000" />
-    </depart>
-
-  </school>
+  </faculty>
+    <faculty name="电气工程与自动化学院">
+      <depart name="电气工程及其自动化专业"  >
+          <class name="电气工程1班"/>
+          <class name="电气工程2班"/>
+          <class name="电气工程3班"/>
+          <class name="电气工程4班"/>
+      </depart>
+      <depart name="自动化专业" >
+          <class name="自动化1班"/>
+          <class name="自动化2班"/>
+          <class name="自动化3班"/>
+          <class name="自动化4班"/>
+      </depart>
+      <depart name="轨道交通信号与控制专业"  >
+          <class name="轨道交通1班"/>
+          <class name="轨道交通2班"/>
+          <class name="轨道交通3班"/>
+          <class name="轨道交通4班"/>
+      </depart>
+      <depart name="测控技术与仪器专业（自动化方向）"  >
+          <class name="测控技术1班"/>
+          <class name="测控技术2班"/>
+          <class name="测控技术3班"/>
+          <class name="测控技术4班"/>
+      </depart>
+    </faculty>
+    <faculty name="机械与动力工程学院">
+      <depart name="机械设计制造及其自动化"  >
+          <class name="机械设计1班"/>
+          <class name="机械设计2班"/>
+          <class name="机械设计3班"/>
+          <class name="机械设计4班"/>
+          <class name="机械设计5班"/>
+          <class name="机械设计6班"/>
+          <class name="机械设计7班"/>
+      </depart>
+      <depart name="能源与动力工程"  >
+          <class name="能源与动力1班"/>
+          <class name="能源与动力2班"/>
+          <class name="能源与动力3班"/>
+          <class name="能源与动力4班"/>
+          <class name="能源与动力5班"/>
+      </depart>
+      <depart name="测控技术与仪器" >
+          <class name="测控技术1班"/>
+          <class name="测控技术2班"/>
+          <class name="测控技术3班"/>
+          <class name="测控技术4班"/>
+          <class name="测控技术5班"/>
+      </depart>
+      <depart name="车辆工程专业简介" >
+          <class name="车辆工程1班"/>
+          <class name="车辆工程2班"/>
+          <class name="车辆工程3班"/>
+          <class name="车辆工程4班"/>
+      </depart>
+    </faculty>
+    <faculty name="土木工程学院">
+      <depart name="土木工程"  >
+          <class name="土木工程1班"/>
+          <class name="土木工程2班"/>
+          <class name="土木工程3班"/>
+          <class name="土木工程4班"/>
+      </depart>
+      <depart name="工程管理"  >
+          <class name="工程管理1班"/>
+          <class name="工程管理2班"/>
+          <class name="工程管理3班"/>
+          <class name="工程管理4班"/>
+      </depart>
+      <depart name="理论与应用力学" >
+          <class name="理论与应用力学1班"/>
+          <class name="理论与应用力学2班"/>
+          <class name="理论与应用力学3班"/>
+          <class name="理论与应用力学4班"/>
+      </depart>
+      <depart name="建筑环境与设备工程">
+          <class name="建筑环境1班"/>
+          <class name="建筑环境2班"/>
+          <class name="建筑环境3班"/>
+          <class name="建筑环境4班"/>
+      </depart>
+    </faculty>
 </root>

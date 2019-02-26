@@ -8,6 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:fitsSystemWindows="true"
+    android:background="@mipmap/loginpic"
     tools:context="com.lei.qrcode.LoginActivity">
     <RelativeLayout
         android:id="@+id/login_view"
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/login_btn_register"
                 android:gravity="left"
-                android:textColor="#436EEE"
+                android:textColor="@color/red"
                 style="?android:attr/borderlessButtonStyle"
                 android:text="马上注册"/>
         </LinearLayout>
@@ -59,7 +60,6 @@
             android:layout_height="wrap_content"
             android:text="登录"
             android:id="@+id/login_btn_login"
-            android:onClick="finish_login"
             android:background="@drawable/button_shape"
             android:textSize="20dp"
             android:textColor="#ffffff"
@@ -69,14 +69,13 @@
             android:layout_marginTop="52dp" />
 
         <ImageView
-            android:layout_width="300dp"
+            android:layout_width="400dp"
             android:layout_height="150dp"
             android:id="@+id/logo"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="false" />
 
         <EditText

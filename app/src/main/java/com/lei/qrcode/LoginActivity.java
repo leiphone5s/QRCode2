@@ -2,10 +2,8 @@ package com.lei.qrcode;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,26 +15,8 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import common.GetAsyncTask;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import view.GetbackPwd;
+import activity.GetbackPwd;
 
 /**
  * A login screen that offers login via email/password.
@@ -88,16 +68,13 @@ public class LoginActivity extends AppCompatActivity {
         mForgetpwdText.setOnClickListener(mListener);
 
         ImageView image = (ImageView) findViewById(R.id.logo);             //使用ImageView显示logo
-        image.setImageResource(R.mipmap.ic_launcher_192x192);
-
-
-        SharedPreferences pref = getSharedPreferences("userInfo",MODE_PRIVATE);//返回1说明用户名和密码均正确
+        image.setImageResource(R.mipmap.toppic);
         //保存学号和密码
-        boolean isSavePwd = pref.getBoolean("mRememberCheck",false);
-        String studentId = pref.getString("STUDENTID","");
-        String password = pref.getString("PASSWORD","");
+        boolean isSavePwd = login_sp.getBoolean("mRememberCheck",false);
+        String studentId = login_sp.getString("STUDENTID","");
+        String password = login_sp.getString("PASSWORD","");
         if(studentId.length()!=0){
-            mStudentId.setText(pref.getString("STUDENTID",""));
+            mStudentId.setText(login_sp.getString("STUDENTID",""));
         }else{
             mStudentId.setText("");
         }
@@ -157,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("USERNAME", jObject.get("username").toString());
                                 editor.putString("EMAIL",jObject.get("email").toString());
                                 editor.putString("PHONE",jObject.get("phone").toString());
+                                editor.putString("PASSWORD",userPwd);
                                 editor.putBoolean("mRememberCheck",mRememberCheck.isChecked());
                                 editor.commit();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);    //切换Login Activity至User Activity

@@ -1,44 +1,27 @@
-package view;
+package activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lei.qrcode.LoginActivity;
 import com.lei.qrcode.MainActivity;
 import com.lei.qrcode.R;
-import com.lei.qrcode.RegisterActivity;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import common.GetAsyncTask;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 public class ModifyPersonalInfo extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText mEditUni,mEditFal,mEditUser,mEditEmail,mEditCal;
-    private SharedPreferences login_sp;
+    private SharedPreferences modify_sp;
     private Button mSaveInfo;
     private String mUserName;
     private String mUserEmail;
@@ -62,21 +45,20 @@ public class ModifyPersonalInfo extends AppCompatActivity {
         mSaveInfo=findViewById(R.id.improve_btn_sure);
         mSaveInfo.setOnClickListener(mSaveInfoListener);
         toolbar.setTitle("个人信息");
-        login_sp = getSharedPreferences("userInfo", 0);
+        modify_sp = getSharedPreferences("userInfo", 0);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences pref = getSharedPreferences("userInfo",MODE_PRIVATE);//返回1说明用户名和密码均正确
         //保存学号和密码
         //String userinfo = pref.getString("UserInfo","");
         try {
 
             mUserSchool = "河南理工大学";
             mUserFaculty="计算机学院";
-            mUserName = pref.getString("USERNAME","");
-            mUserEmail = pref.getString("EMAIL","");
-            mUserPhone = pref.getString("PHONE","");
+            mUserName = modify_sp.getString("USERNAME","");
+            mUserEmail = modify_sp.getString("EMAIL","");
+            mUserPhone = modify_sp.getString("PHONE","");
             mEditUni.setText(mUserSchool);
             mEditFal.setText(mUserFaculty);
             mEditUser.setText(mUserName);
@@ -110,8 +92,7 @@ public class ModifyPersonalInfo extends AppCompatActivity {
     };
 
     private void saveUserInfo(){
-        SharedPreferences pref = getSharedPreferences("userInfo",MODE_PRIVATE);//返回1说明用户名和密码均正确
-        final String studentId = pref.getString("STUDENTID","");
+        final String studentId = modify_sp.getString("STUDENTID","");
         final String email = mEditEmail.getText().toString().trim();
         final String phone = mEditCal.getText().toString().trim();
         final String user = mEditUser.getText().toString().trim();
@@ -134,7 +115,7 @@ public class ModifyPersonalInfo extends AppCompatActivity {
                         if (data != null && data.equals("true")) {
                             if (data != null && data.equals("true")) {
                                 //保存学号和密码
-                                SharedPreferences.Editor editor = login_sp.edit();
+                                SharedPreferences.Editor editor = modify_sp.edit();
                                 editor.putString("STUDENTID", studentId);
                                 editor.putString("USERNAME", user);
                                 editor.putString("PHONE", phone);

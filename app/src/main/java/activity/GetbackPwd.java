@@ -1,4 +1,4 @@
-package view;
+package activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

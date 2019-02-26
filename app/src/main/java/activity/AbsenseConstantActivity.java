@@ -1,4 +1,4 @@
-package view;
+package activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

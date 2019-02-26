@@ -1,0 +1,29 @@
+<root>
+    <faculty name="测绘与国土信息工程学院">
+      <depart name="人文地理与城乡规划专业"/>
+      <depart name="测绘工程专业" />
+      <depart name="地理信息科学专业"  />
+      <depart name="土地资源管理专业"  />
+      <depart name="遥感科学与技术专业"  />
+      <depart name="自然地理与资源环境专业" />
+    </faculty>
+    <faculty name="电气工程与自动化学院">
+      <depart name="电气工程及其自动化专业"/>
+      <depart name="电气工程及其自动化专业（中外合作办学）"  />
+      <depart name="自动化专业"  />
+      <depart name="轨道交通信号与控制专业" />
+      <depart name="测控技术与仪器专业（自动化方向）"  />
+    </faculty>
+    <faculty name="机械与动力工程学院">
+      <depart name="机械设计制造及其自动化"/>
+      <depart name="能源与动力工程"  />
+      <depart name="测控技术与仪器" />
+      <depart name="车辆工程专业简介"  />
+    </faculty>
+    <faculty name="土木工程学院">
+      <depart name="土木工程"  />
+      <depart name="工程管理" />
+      <depart name="理论与应用力学" />
+      <depart name="建筑环境与设备工程"  />
+    </faculty>
+</root>

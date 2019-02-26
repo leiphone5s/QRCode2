@@ -1,11 +1,8 @@
 package com.lei.qrcode;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +10,6 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -22,36 +18,14 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import activity.RegisterSelectWheel2;
 import common.GetAsyncTask;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.FormBody;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-import view.RegisterSelectWheel;
-
-import com.lljjcoder.citypickerview.widget.CityPicker;
+import activity.RegisterSelectWheel;
 
 /**
  * A login screen that offers login via email/password.
@@ -66,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button mSureButton;                       //确定按钮
     private Button mCancelButton;                     //取消按钮
     private Toolbar mRegistertoolbar;
-    private RadioButton mRadio1, mRadio2;
+    private RadioButton mRadioStudent, mRadioTeacher;
     private SharedPreferences login_sp;
     private TextView adresss;
     private final static int REQUESTCODE = 1; // 返回的结果码
@@ -86,8 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         mSureButton = (Button) findViewById(R.id.register_btn_sure);
 
-        mRadio1 = (RadioButton) findViewById(R.id.radioButton1);
-        mRadio2 = (RadioButton) findViewById(R.id.radioButton2);
+        mRadioStudent = (RadioButton) findViewById(R.id.radioButton1);
+        mRadioTeacher = (RadioButton) findViewById(R.id.radioButton2);
 
         adresss = findViewById(R.id.register_address);
 
@@ -122,9 +96,16 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
                 case R.id.register_address:
                     // 意图实现activity的跳转
-                    Intent intent = new Intent(RegisterActivity.this, RegisterSelectWheel.class);
-                    intent.putExtra("a", 1);
-                    startActivityForResult(intent, REQUESTCODE); //REQUESTCODE--->1
+                    if(mRadioTeacher.isChecked()){
+                        Intent intent = new Intent(RegisterActivity.this, RegisterSelectWheel2.class);
+                        intent.putExtra("a", 1);
+                        startActivityForResult(intent, REQUESTCODE); //REQUESTCODE--->1
+                    }else{
+                        Intent intent = new Intent(RegisterActivity.this, RegisterSelectWheel.class);
+                        intent.putExtra("a", 1);
+                        startActivityForResult(intent, REQUESTCODE); //REQUESTCODE--->1
+                    }
+
                     break;
             }
         }
@@ -136,9 +117,9 @@ public class RegisterActivity extends AppCompatActivity {
             final String student_id = mStuentId.getText().toString().trim();
             final String userPwd = mPwd.getText().toString().trim();
             final String userPwdCheck = mPwdCheck.getText().toString().trim();
-            final boolean isBoy = mRadio1.isChecked();
-            final boolean isGirl = mRadio2.isChecked();
-            Log.d("lei", "isBoy = " + isBoy + "    isGirl = " + isGirl);
+            final boolean isTeacher = mRadioTeacher.isChecked();
+            final boolean isStudent = mRadioStudent.isChecked();
+            Log.d("lei", "isBoy = " + isTeacher + "    isGirl = " + isStudent);
             if (userPwd.equals(userPwdCheck)) {
                 try {
                     GetAsyncTask registerAsyncTask = new GetAsyncTask();
@@ -357,11 +338,15 @@ public class RegisterActivity extends AppCompatActivity {
         // operation succeeded. 默认值是-1
         if (resultCode == 2) {
             if (requestCode == REQUESTCODE) {
-                String mSchool = data.getStringExtra("school");
+                String mFaculty = data.getStringExtra("faculty");
                 String mDepart = data.getStringExtra("depart");
                 String mClass = data.getStringExtra("class");
                 //设置结果显示框的显示数值
-                adresss.setText(mSchool+mDepart+mClass);
+                if(mClass != null) {
+                    adresss.setText("河南理工大学" + mFaculty + mDepart + mClass);
+                }else{
+                    adresss.setText("河南理工大学" + mFaculty + mDepart);
+                }
             }
         }
     }

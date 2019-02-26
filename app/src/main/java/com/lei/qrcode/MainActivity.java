@@ -1,6 +1,5 @@
 package com.lei.qrcode;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -11,12 +10,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,31 +36,31 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.io.File;
 
-import common.GetAsyncTask;
+import activity.AbsenseRecord;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import view.ModifyPersonalInfo;
-import view.PersonalSettings;
-import view.Resetpwd;
+import activity.PersonalSettings;
+import utils.ACache;
+import utils.Globals;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button scanBtn;
-    private TextView result;
+    private TextView qrcode;
     private EditText contentEt;
     private Button encodeBtn;
     private ImageView contentIv;
     private Toolbar toolbar;
-    private SharedPreferences login_sp;
     private int REQUEST_CODE_SCAN = 111;
+    private String recordUrl = "/user/signlist";
     public static String serverUrl = "http://192.168.137.215:7001";
     //public static String serverUrl = "http://192.168.0.119:7001";
     //public static String serverUrl = "http://47.105.138.71:80";
@@ -78,22 +75,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView contentIvWithLogo;
     private String contentEtString;
     private long firstTime = 0;
+    SharedPreferences main_pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+    }
 
-
+    protected void initTodayRecord() {
+        String studentId = main_pref.getString("STUDENTID","");
+        Calendar calendar = Calendar.getInstance(); //获取系统的日期
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DATE);
+        GetQrAsyncTask getQrAsyncTask1 = new GetQrAsyncTask(MainActivity.serverUrl+recordUrl+
+                "?pageSize=10&page=0&student_no="+studentId+"&start_time="+ (year+"-"+month+"-"+day));
+        getQrAsyncTask1.execute();
     }
 
     private void initView() {
+        main_pref = getSharedPreferences("userInfo",MODE_PRIVATE);
+        String studentId = main_pref.getString("STUDENTID","");
+        boolean isTeacher = studentId.contains("6");
         /*扫描按钮*/
         scanBtn = findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
         /*扫描结果*/
-        //result = findViewById(R.id.result);
+        qrcode = findViewById(R.id.Qrcode);
 
         /*要生成二维码的输入框*/
         contentEt = findViewById(R.id.contentEt);
@@ -102,13 +112,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         encodeBtn.setOnClickListener(this);
         /*生成的图片*/
         contentIv = findViewById(R.id.contentIv);
-
+        if(isTeacher)
+        {
+            scanBtn.setVisibility(View.GONE);
+            qrcode.setText("一键签到");
+            qrcode.setOnClickListener(MySignListener);
+        }
 //        toolbar = findViewById(R.id.toolbar);
 //
 //
 //        toolbar.setTitle("扫一扫");
-
-        login_sp = getSharedPreferences("userInfo", 0);
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -127,19 +140,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         startActivity(i);
                         break;
                     case R.id.aboutus:
-                        Intent intentToAboutUs = new Intent(MainActivity.this, view.AboutUs.class) ;    //切换Login Activity至User Activity
+                        Intent intentToAboutUs = new Intent(MainActivity.this, activity.AboutUs.class) ;    //切换Login Activity至User Activity
                         startActivity(intentToAboutUs);
                         break;
                     case R.id.absenserecord:
-                        Intent intentToAbsenseRecord = new Intent(MainActivity.this, view.AbsenseRecord.class) ;    //切换Login Activity至User Activity
+                        Intent intentToAbsenseRecord = new Intent(MainActivity.this, activity.AbsenseRecord.class) ;    //切换Login Activity至User Activity
                         startActivity(intentToAbsenseRecord);
                         break;
                     case R.id.absensewarn:
-                        Intent intentToAbsenseWarn = new Intent(MainActivity.this, view.AbsenseWarn.class) ;    //切换Login Activity至User Activity
+                        Intent intentToAbsenseWarn = new Intent(MainActivity.this, activity.AbsenseWarn.class) ;    //切换Login Activity至User Activity
                         startActivity(intentToAbsenseWarn);
                         break;
                     case R.id.absenseconstant:
-                        Intent intentToAbsenseConstant = new Intent(MainActivity.this, view.AbsenseConstantActivity.class) ;    //切换Login Activity至User Activity
+                        Intent intentToAbsenseConstant = new Intent(MainActivity.this, activity.AbsenseConstantActivity.class) ;    //切换Login Activity至User Activity
                         startActivity(intentToAbsenseConstant);
                         break;
                 }
@@ -149,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
-
+        initTodayRecord();
     }
 
     @Override
@@ -250,20 +263,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
+    // 或者,这里是创建一个OnClickListener 的对象，与上面的直接复写接口有异曲同工之妙
+    View.OnClickListener MySignListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this,"签到成功～",Toast.LENGTH_SHORT).show();
+        }
+    };
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //String serverPath = "http://47.105.138.71:80";
-        SharedPreferences pref = getSharedPreferences("userInfo",MODE_PRIVATE);
-        String studentid = pref.getString("STUDENTID","eq"); //获取当前输入的用户名和密码信息
+        String studentid = main_pref.getString("STUDENTID","eq"); //获取当前输入的用户名和密码信息
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
 
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                //result.setText("扫描结果为：" + content);
-                Log.d("lei","content = "+content);
-                Log.d("lei","path = "+MainActivity.serverUrl+content+"?student_no="+studentid+"&class_no=1");
                 GetQrAsyncTask getQrAsyncTask = new GetQrAsyncTask(MainActivity.serverUrl+content+"?student_no="+studentid+"&class_no=1");
                 getQrAsyncTask.execute();
             }
@@ -331,15 +347,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         protected void onPostExecute(String s) {
 
             //服务器返回的数据
-            Log.d("lei","s = "+s);
             try {
                 JSONObject jsonObject = new JSONObject(s);
+                if(jsonObject.getJSONArray("list")!=null && jsonObject.getJSONArray("list").length() != 0){
+                    ACache.get(MainActivity.this).put(Globals.DAYRECORD,s);
+                }
                 String code = jsonObject.getString("code");
                 String msg = jsonObject.getString("msg");
                 String data = jsonObject.getString("data");
                 Log.d("lei","code = "+code+"  msg = "+msg+"  data = "+data);
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();//登录成功提示
-                Log.d("lei","msg = "+msg+"   isFinish = "+(data.equals("true")));
+                //Log.d("lei","msg = "+msg+"   isFinish = "+(data.equals("true")));
                 //Toast.makeText(LoginActivity.this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show();//登录成功提示
 
             }catch(Exception e){}
