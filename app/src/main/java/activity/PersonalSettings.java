@@ -16,6 +16,9 @@ import com.lei.qrcode.R;
 
 import java.io.File;
 
+import utils.ACache;
+import utils.Globals;
+
 public class PersonalSettings extends AppCompatActivity implements View.OnClickListener{
 
     private LinearLayout mSettingsPersonalInfo,mSettingsSecurity,mSettingsModifyPwd,mSettingsRemind,mSettingsLogout;
@@ -107,6 +110,7 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
             SharedPreferences.Editor editor = login_sp.edit();
             editor.clear();
             editor.commit();
+            ACache.get(PersonalSettings.this).remove(Globals.DAYRECORD);
             File[] files = new File("/data/data/" + this.getPackageName() + "/shared_prefs").listFiles();
             deleteCache(files);
             Intent intent = new Intent(PersonalSettings.this, LoginActivity.class);    //切换Login Activity至User Activity
