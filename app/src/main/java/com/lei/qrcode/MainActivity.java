@@ -95,6 +95,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getQrAsyncTask1.execute();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initTodayRecord();
+    }
+
     private void initView() {
         main_pref = getSharedPreferences("userInfo",MODE_PRIVATE);
         String studentId = main_pref.getString("STUDENTID","");
@@ -162,7 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
-        initTodayRecord();
     }
 
     @Override
@@ -350,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 JSONObject jsonObject = new JSONObject(s);
                 if(jsonObject.getJSONArray("list")!=null && jsonObject.getJSONArray("list").length() != 0){
+                    ACache.get(MainActivity.this).remove(Globals.DAYRECORD);
                     ACache.get(MainActivity.this).put(Globals.DAYRECORD,s);
                 }
                 String code = jsonObject.getString("code");

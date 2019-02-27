@@ -13,6 +13,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -67,7 +68,7 @@ public class AbsenseRecord extends AppCompatActivity {
 
     private LinearLayout absense_list;
     private RelativeLayout relativeLayout;
-    private TextView text_courseName, text_teacherName, text_place, text_signInTime, text_signType;
+    private TextView text_courseName, text_teacherName, text_place, text_signInTime, text_signType,text_emptyview;
     //private String[] name = {"课程名称", "教学老师", "上课地点", "签到时间", "签到状态"};
     ListView tableListView;
     SharedPreferences pref;
@@ -139,7 +140,9 @@ public class AbsenseRecord extends AppCompatActivity {
         text_signInTime = absense_list.findViewById(R.id.text_signInTime);
         text_signType = absense_list.findViewById(R.id.text_signType);
         tableListView = findViewById(R.id.list);
-
+       // text_emptyview = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_list_view,null);
+        text_emptyview = findViewById(R.id.text_tip);
+        text_emptyview.setVisibility(View.INVISIBLE);
         ViewGroup tableTitle = findViewById(R.id.table_title);
         tableTitle.setBackgroundColor(Color.rgb(177, 173, 172));
         initTodayAbsenseInfo();
@@ -238,6 +241,7 @@ public class AbsenseRecord extends AppCompatActivity {
                     message.obj = list;
                     message.what = REFRESH;
                     myHandler.sendMessage(message);
+                    Log.d("lei","send refresh message");
                 } catch (Exception e) {
                 }
             super.onPostExecute(s);
@@ -250,9 +254,17 @@ public class AbsenseRecord extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case REFRESH:
+                      Log.d("lei","receive refresh message");
                       List<AbsenseInfo> list  = (List<AbsenseInfo>)msg.obj;
-                      TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);
-                      tableListView.setAdapter(adapter);
+                      if(list.size() != 0) {
+                          TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);
+                          tableListView.setAdapter(adapter);
+                      }else{
+                          text_emptyview.setVisibility(View.VISIBLE);
+                          TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);
+                          tableListView.setAdapter(adapter);
+                          tableListView.setEmptyView(text_emptyview);
+                      }
                     break;
             }
             super.handleMessage(msg);
