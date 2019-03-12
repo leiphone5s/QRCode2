@@ -26,144 +26,133 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp"
         android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/improveinfo_university"
+            style="@style/TxtTitle"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="学校名称："/>
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@null"
             android:gravity="left|center"
             android:ems="10"
             android:id="@+id/improveinfo_edit_colleage" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+    <View
+        android:background="@color/black2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            style="@style/TxtTitle"
             android:id="@+id/improveinfo_colleage"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="学院名称："/>
 
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@null"
             android:ems="10"
             android:id="@+id/improveinfo_edit_university"
             />
     </LinearLayout>
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+    <View
+        android:background="@color/black2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            style="@style/TxtTitle"
             android:id="@+id/improveinfo_depart"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="用户名称："/>
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@null"
             android:ems="10"
             android:hint="（可修改）"
             android:id="@+id/improveinfo_edit_user" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/TextView03"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+    <View
+        android:background="@color/black2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/improveinfo_class"
+            style="@style/TxtTitle"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="邮箱地址："/>
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@null"
             android:hint="（可修改）"
             android:ems="10"
             android:id="@+id/improveinfo_edit_email" />
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+    <View
+        android:background="@color/black2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            style="@style/TxtTitle"
             android:id="@+id/improveinfo_call"
             android:gravity="center"
-            android:textSize="18dp"
+            android:textSize="16sp"
             android:text="联系方式："/>
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:background="@null"
             android:hint="（可修改）"
             android:ems="10"
@@ -171,24 +160,22 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/TextView08"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+    <View
+        android:background="@color/black2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="保存"
         android:id="@+id/improve_btn_sure"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/button_shape" />
 
 

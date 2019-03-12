@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<shape xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:shape="oval" >-->
+
+    <!--<solid android:color="@color/white" />-->
+
+    <!--<corners android:radius="50dp" />-->
+
+<!--</shape>-->
+
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--<item>-->
+        <!--<shape android:shape="oval">-->
+            <!--//边框角度-->
+            <!--<corners android:radius="10dp"/>-->
+            <!--//外边框颜色-->
+            <!--<solid android:color="@color/link_color"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+    <!--//离边框的厚度-->
+    <!--<item android:bottom="1dp" android:left="1dp" android:right="1dp" android:top="1dp">-->
+        <!--<shape android:shape="oval">-->
+            <!--//边框角度-->
+            <!--<corners android:radius="10dp"/>-->
+            <!--//外边框颜色，这个为内部颜色-->
+            <!--<solid android:color="@color/white" />-->
+        <!--</shape>-->
+    <!--</item>-->
+
+<!--</layer-list>-->
+
+
+<shape
+
+    xmlns:android= "http://schemas.android.com/apk/res/android"
+
+    android:shape= "oval"
+
+    android:useLevel= "false" >
+
+    <solid android:color= "@color/white" />
+
+    <stroke
+
+        android:width= "12dp"
+
+        android:color= "@color/blue0" />
+
+    <size android:width= "50dp"
+
+        android:height= "50dp" />
+
+</shape>

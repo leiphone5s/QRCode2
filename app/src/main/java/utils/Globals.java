@@ -10,5 +10,8 @@ public class Globals {
     /**用户名*/
     public static final String USERNAME_KEY = "username";
     public static final String DAYRECORD = "dayrecord";
+    public static final String TOTAL = "total";
+    public static final String ACTUAL_NUM = "actual_num";
+
 
 }

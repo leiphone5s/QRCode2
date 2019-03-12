@@ -1,133 +1,235 @@
 package activity;
 
-import android.graphics.Bitmap;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.JavascriptInterface;
-import android.webkit.JsResult;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import adapter.TableAdapter;
+import chart.StudyReportPieChart;
+import common.GetAsyncTask;
+import model.AbsenseInfo;
+import model.KnowledgeMasteryReport;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import utils.ACache;
+import utils.Globals;
+
+
+import com.google.gson.JsonObject;
+import com.lei.qrcode.LoginActivity;
+import com.lei.qrcode.MainActivity;
 import com.lei.qrcode.R;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
+
+/**
+ * Created by ldf on 17/7/13.
+ */
 
 public class AbsenseConstantActivity extends AppCompatActivity {
 
-    private WebView webView;
-    private ProgressBar progressBar;
+    //private  final int REFRESH_PIC = 10;
+    StudyReportPieChart pieChart;
+    private static final int TIMER = 999;
+    private static boolean flag = true;
+    KnowledgeMasteryReport report;
+    TextView mTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_absense_constant);
-        progressBar= (ProgressBar)findViewById(R.id.progressbar);//进度条
-        webView = (WebView) findViewById(R.id.webview); //
-        //webView.loadUrl("file:///android_asset/test.html");//加载asset文件夹下html
-        webView.loadUrl("https://www.baidu.com/");
-        //webView.loadUrl("http://139.196.35.30:8080/OkHttpTest/apppackage/test.html");//加载url
+        pieChart = findViewById(R.id.pie_chart);
+        mTextView = findViewById(R.id.sign_number2);
+        report = new KnowledgeMasteryReport();
+        report.setKnowKnowledgeCount("0");
+        report.setWeakKnowledgeCount("1");
+        pieChart.notifyDataChanged(report);
+        flag = true;
+        setTimer();
 
-        // 使用webview显示html代码
-        // webView.loadDataWithBaseURL(null,"<html><head><title> 欢迎您 </title></head>" +
-        //  "<body><h2>使用webview显示 html代码</h2></body></html>", "text/html" , "utf-8", null);
-
-        webView.addJavascriptInterface(this,"android");//添加js监听 这样html就能调用客户端
-        webView.setWebChromeClient(webChromeClient);
-        webView.setWebViewClient(webViewClient);
-        WebSettings webSettings=webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);//允许使用js
-        /**
-         * LOAD_CACHE_ONLY: 不使用网络，只读取本地缓存数据
-                * LOAD_DEFAULT: （默认）根据cache-control决定是否从网络上取数据。
-         * LOAD_NO_CACHE: 不使用缓存，只从网络获取数据.
-                * LOAD_CACHE_ELSE_NETWORK，只要本地有，无论是否过期，或者no-cache，都使用缓存中的数据。
-         */
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//不使用缓存，只从网络获取数据. //支持屏幕缩放
-        webSettings.setSupportZoom(true);
-        webSettings.setBuiltInZoomControls(true); //不显示webview缩放按钮 //
-        webSettings.setDisplayZoomControls(false);
     }
 
-    //WebViewClient主要帮助WebView处理各种通知、请求事件
-    private WebViewClient webViewClient=new WebViewClient(){
+    private void intiGetSignDataFromAliyun(){
+        try{
+            GetSignAsyncTask getSignAsyncTask = new GetSignAsyncTask(MainActivity.serverUrl+"/sign/getSignData?lesson_id=1");
+            getSignAsyncTask.setOnDataFinishedListener(new AbsenseConstantActivity.OnDataFinishedListener() {
 
-        @Override
-        public void onPageFinished(WebView view, String url) {//页面加载完成
-                progressBar.setVisibility(View.GONE);
-            }
-        @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {//页面开始加载
-            progressBar.setVisibility(View.VISIBLE);
+                @Override
+                public void onDataSuccessfully(Object s) {
+                    try {
+                        JSONObject jsonObject = new JSONObject((String)s);
+                        JSONObject jsonObject1 = (JSONObject) jsonObject.get("data");
+                        String total = jsonObject1.getString("total");
+                        String actual_num = jsonObject1.getString("actual_num");
+                        Log.d("lei",total+"***********"+actual_num);
+                        if(total != null && actual_num !=null){
+                            ACache.get(AbsenseConstantActivity.this).put(Globals.TOTAL,total);
+                            ACache.get(AbsenseConstantActivity.this).put(Globals.ACTUAL_NUM,actual_num);
+                            mHandler.sendEmptyMessage(TIMER);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onDataFailed() {
+                    Toast.makeText(AbsenseConstantActivity.this, "获取失败！", Toast.LENGTH_SHORT).show();
+                }
+            });
+            getSignAsyncTask.execute();
+        }catch(Exception e){
+
         }
+    }
 
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            Log.i("lei","拦截url:"+url);
-            if(url.equals("http://www.google.com/")){
-                Toast.makeText(AbsenseConstantActivity.this,"国内不能访问google,拦截该url",Toast.LENGTH_LONG).show();
-                return true;//表示我已经处理过了
+    private void setTimer(){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (flag){
+                    try {
+                        intiGetSignDataFromAliyun();
+                        Thread.sleep(2000); //休眠一秒
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
-            return super.shouldOverrideUrlLoading(view, url);
+        }).start();
+
+    }
+
+
+    // 实例化一个handler
+    Handler mHandler = new Handler() {
+        //接收到消息后处理
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case TIMER:
+                    report.setWeakKnowledgeCount(ACache.get(AbsenseConstantActivity.this).getAsString(Globals.TOTAL) );
+                    report.setKnowKnowledgeCount(ACache.get(AbsenseConstantActivity.this).getAsString(Globals.ACTUAL_NUM));
+                    mTextView.setText(ACache.get(AbsenseConstantActivity.this).getAsString(Globals.ACTUAL_NUM)+"/"+ACache.get(AbsenseConstantActivity.this).getAsString(Globals.TOTAL));
+                    Log.d("lei",ACache.get(AbsenseConstantActivity.this).getAsString(Globals.TOTAL)+"++++++"+ACache.get(AbsenseConstantActivity.this).getAsString(Globals.ACTUAL_NUM));
+                    pieChart.notifyDataChanged(report);
+                    break;
+            }
+            super.handleMessage(msg);
         }
     };
 
-    //WebChromeClient主要辅助WebView处理Javascript的对话框、网站图标、网站title、加载进度等
-    private WebChromeClient webChromeClient=new WebChromeClient(){ //不支持js的alert弹窗，需要自己监听然后通过dialog弹窗
-        @Override
-        public boolean onJsAlert(WebView webView, String url, String message, JsResult result) {
-            AlertDialog.Builder localBuilder = new AlertDialog.Builder(webView.getContext());
-            localBuilder.setMessage(message).setPositiveButton("确定",null);
-            localBuilder.setCancelable(false);
-            localBuilder.create().show();
-            //注意:
-            // 必须要这一句代码:result.confirm()表示:
-            // 处理结果为确定状态同时唤醒WebCore线程
-            // 否则不能继续点击按钮
-            result.confirm();
-            return true;
-        } //获取网页标题
+    private void stopTimer(){
+        flag = false;
+    }
 
-        @Override
-        public void onReceivedTitle(WebView view, String title) {
-            super.onReceivedTitle(view, title);
-            Log.i("lei","网页标题:"+title);
-        } //加载进度回调
-
-        @Override
-        public void onProgressChanged(WebView view, int newProgress) {
-            progressBar.setProgress(newProgress);
-        }
-    };
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Log.i("lei","是否有上一个页面:"+webView.canGoBack());
-        if (webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
-            webView.goBack(); // goBack()表示返回webView的上一页面
-            return true;
-        }
-        return super.onKeyDown(keyCode,event);
+    protected void onDestroy() {
+        super.onDestroy();
+        stopTimer();
     }
-                /**
-     * JS调用android的方法
-     * @param str
-     * @return
-             */
-      @JavascriptInterface //仍然必不可少
-      public void getClient(String str){
-          Log.i("lei","html调用客户端:"+str);
-      }
 
-       @Override protected void onDestroy() {
-           super.onDestroy(); //释放资源
-           webView.destroy();
-           webView=null;
-      }
+    private class GetSignAsyncTask extends AsyncTask<Void, Void, String> {
+
+        private String serverUrl;
+        String responseData = null;
+        OnDataFinishedListener onDataFinishedListener;
+
+        public void setOnDataFinishedListener(OnDataFinishedListener onDataFinishedListener) {
+            this.onDataFinishedListener = onDataFinishedListener;
+        }
+
+        public GetSignAsyncTask(String url) {
+            serverUrl = url;
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            Response response = null;
+            final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+            OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                    .cookieJar(new CookieJar() {
+                        @Override
+                        public void saveFromResponse(HttpUrl httpUrl, List<Cookie> list) {
+                            cookieStore.put(httpUrl.host(), list);
+                        }
+
+                        @Override
+                        public List<Cookie> loadForRequest(HttpUrl httpUrl) {
+                            List<Cookie> cookies = cookieStore.get(httpUrl.host());
+                            return cookies != null ? cookies : new ArrayList<Cookie>();
+                        }
+                    })
+                    .build();
+
+            //发起请求
+            Request request = new Request.Builder()
+                    .url(serverUrl)
+                    .build();
+            try {
+                response = okHttpClient.newCall(request).execute();
+                responseData = response.body().string();
+                Log.d("lei", "responseData =" + responseData);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return responseData;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+            if(s!=null){
+                onDataFinishedListener.onDataSuccessfully(s);
+            }else{
+                onDataFinishedListener.onDataFailed();
+            }
+
+//            //服务器返回的数据
+//            try {
+//                JSONObject jsonObject = new JSONObject(s);
+//
+//                String code = jsonObject.getString("code");
+//                String msg = jsonObject.getString("msg");
+//                String data = jsonObject.getString("data");
+//                Log.d("lei","code = "+code+"  msg = "+msg+"  data = "+data);
+//                Toast.makeText(AbsenseConstantActivity.this,msg,Toast.LENGTH_SHORT).show();
+//                //Utils.showShortToast(MainActivity.this,msg);
+//            }catch(Exception e){}
+            super.onPostExecute(s);
+        }
+
+    }
+
+    //回调接口：
+    public interface OnDataFinishedListener {
+
+        public void onDataSuccessfully(Object data);
+
+        public void onDataFailed();
+
+    }
+
 
 }

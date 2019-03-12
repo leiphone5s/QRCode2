@@ -1,220 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout
+    android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="activity.PersonalSettings">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+    <!--<include layout="@layout/layout_title" />-->
+
+
+    <ScrollView
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary_dark"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/settings_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+        android:scrollbars="none">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:text="设置"/>
-        </android.support.v7.widget.Toolbar>
+                android:id="@+id/txt_usersafe"
+                android:textSize="16sp"
+                style="@style/TxtTitle"
+                android:gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/right"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/setting_item_selector"
+                android:text="账号与安全" />
+            <View
+                android:background="@color/black2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/txt_msgtip"
+                android:textSize="16sp"
+                style="@style/TxtTitle"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:drawableRight="@drawable/right"
+                android:background="@drawable/setting_item_selector"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:text="新消息通知" />
+            <View
+                android:background="@color/black2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp" />
 
 
 
-    </android.support.design.widget.AppBarLayout>
 
+            <TextView
+                android:id="@+id/txt_modifypwd"
+                style="@style/TxtTitle"
+                android:textSize="16sp"
+                android:background="@drawable/setting_item_selector"
+                android:gravity="center_vertical"
+                android:drawableRight="@drawable/right"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings_personalinfo"
-        android:background="@drawable/ripple_bg"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/settings_personalinfo_image"
-            android:src="@mipmap/ic_person_about"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/button1"
-            android:text="个人信息"
-            android:background="@null"
-            android:gravity="left|center"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/blue_black"
-             />
+                android:text="密码修改" />
+            <View
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
+                android:layout_width="fill_parent"
+                android:background="@color/black2"
+                android:layout_height="1dp" />
+            <TextView
+                android:id="@+id/txt_personinfo"
+                style="@style/TxtTitle"
+                android:drawableRight="@drawable/right"
+                android:textSize="16sp"
+                android:background="@drawable/setting_item_selector"
+                android:gravity="center_vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:text="个人信息" />
+            <View
+                android:layout_width="fill_parent"
+                android:background="@color/black2"
+                android:layout_height="1dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings_security"
-        android:background="@drawable/ripple_bg"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/settings_security_image"
-            android:src="@mipmap/ic_settings_config"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/button2"
-            android:text="账号与安全"
-            android:background="@null"
-            android:gravity="left|center"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/blue_black"
-            />
-    </LinearLayout>
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ripple_bg"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:id="@+id/settings_remind"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/settings_remind_image"
-            android:src="@mipmap/ic_settings_notifications"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/button3"
-            android:text="新消息提醒"
-            android:background="@null"
-            android:gravity="left|center"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/blue_black"
-             />
+            <TextView
+                android:id="@+id/txt_about"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                style="@style/TxtTitle"
+                android:background="@drawable/setting_item_selector"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="10dp"
+                android:drawableRight="@drawable/right"
+                android:text="关于扫一扫" />
+            <View
+                android:background="@color/black2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp" />
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/TextView03"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings_modifypwd"
-        android:background="@drawable/ripple_bg"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/settings_modifypwd_image"
-            android:src="@mipmap/password_lock"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/button4"
-            android:text="密码修改"
-            android:background="@null"
-            android:gravity="left|center"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/blue_black"
-             />
-
-    </LinearLayout>
-    <TextView
-        android:id="@+id/TextView04"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@android:color/darker_gray"
-        android:text="TextView" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ripple_bg"
-        android:id="@+id/settings_logout"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/settings_logout_image"
-            android:src="@mipmap/logout"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/button5"
-            android:text="账号注销"
-            android:background="@null"
-            android:gravity="left|center"
-            android:layout_marginLeft="20dp"
-            android:textSize="18dp"
-            android:textColor="@color/blue_black"
-             />
-
-    </LinearLayout>
-    <TextView
-    android:id="@+id/TextView09"
-    android:layout_width="match_parent"
-    android:layout_height="0.5dp"
-    android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:background="@android:color/darker_gray"
-    android:text="TextView" />
-
-
-
+            <LinearLayout
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="80dp">
+                <Button
+                    android:textColor="@color/white"
+                    android:id="@+id/btnexit"
+                    android:background="@drawable/btn_bg_red2"
+                    android:padding="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:text="账号注销" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

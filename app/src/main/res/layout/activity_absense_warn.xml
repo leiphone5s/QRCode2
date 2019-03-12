@@ -1,46 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#ebebeb"
+    android:orientation="vertical" >
 
-    <android.support.design.widget.AppBarLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary_dark"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent" >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/absensewarn_toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="课程提醒"
-                android:textSize="20dp"/>
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/absensewarn_text"
-            android:textColor="@color/dark"
-            android:textSize="20dp"
-            android:text="考勤提醒"/>
+            android:background="#EBEBEB"
+            android:orientation="vertical" >
 
-    </LinearLayout>
 
+            <RelativeLayout
+                android:id="@+id/re_change_groupname"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="20dp"
+                android:background="#ffffff"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="课程提醒"
+                    android:textColor="#353535"
+                    android:textSize="16sp"
+                    android:typeface="serif" />
+                <CheckBox
+                    android:id="@+id/course_tip"
+                    android:layout_width="50dp"
+                    android:checked="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCheckboxTheme" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="#dadada" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="20dp"
+                android:background="#ffffff"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="提醒时间设置"
+                    android:textColor="#353535"
+                    android:textSize="16sp"
+                    android:typeface="serif" />
+
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/spinner_tip"
+                    android:entries="@array/spingarr"
+                    />
+
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="#dadada" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                android:padding="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="铃音"
+                    android:textColor="#353535"
+                    android:textSize="16sp"
+                    android:typeface="serif" />
+
+                <CheckBox
+                    android:id="@+id/ring_tip"
+                    android:layout_width="50dp"
+                    android:checked="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCheckboxTheme" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="#dadada" />
+
+            <RelativeLayout
+                android:id="@+id/rl_switch_block_groupmsg"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="震动"
+                    android:textColor="#353535"
+                    android:textSize="16sp"
+                    android:typeface="serif" />
+
+                <CheckBox
+                    android:id="@+id/shake_tip"
+                    android:layout_width="50dp"
+                    android:checked="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCheckboxTheme" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/re_clear"
+                android:layout_width="match_parent"
+                android:layout_height="50dip"
+                android:layout_marginTop="20dp"
+                android:background="#ffffff"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="清空提醒记录"
+                    android:textColor="#353535"
+                    android:textSize="16sp"
+                    android:typeface="serif" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

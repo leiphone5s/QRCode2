@@ -109,7 +109,7 @@ public class AbsenseRecord extends AppCompatActivity {
         tmp.add("2018-12-16");
         DPCManager.getInstance().setDecorBG(tmp);
 
-        DatePicker2 picker = (DatePicker2) findViewById(R.id.main_dp);
+        DatePicker2 picker = findViewById(R.id.main_dp);
         picker.setDate(year, month);
         picker.setMode(DPMode.SINGLE);
         picker.setDPDecor(new DPDecor() {
@@ -142,34 +142,22 @@ public class AbsenseRecord extends AppCompatActivity {
         tableListView = findViewById(R.id.list);
        // text_emptyview = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.empty_list_view,null);
         text_emptyview = findViewById(R.id.text_tip);
-        text_emptyview.setVisibility(View.INVISIBLE);
+        //text_emptyview.setVisibility(View.INVISIBLE);
         ViewGroup tableTitle = findViewById(R.id.table_title);
         tableTitle.setBackgroundColor(Color.rgb(177, 173, 172));
         initTodayAbsenseInfo();
     }
 
-    private void initTodayAbsenseInfo(){
-        try {
-
-            JSONObject jsonObject = ACache.get(AbsenseRecord.this).getAsJSONObject(Globals.DAYRECORD);
-            JSONArray jsonArray = jsonObject.getJSONArray("list");
-            List<AbsenseInfo> list = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject1 = (JSONObject) jsonArray.get(i);
-                String class_name = jsonObject1.getString("lesson_name");
-                String place = jsonObject1.getString("place");
-                String teacher_name = jsonObject1.getString("teacher_name");
-                String update_time = jsonObject1.getString("update_time");
-                String sign_type = jsonObject1.getString("sign_type") + "已签到";
-                AbsenseInfo absenseInfo = new AbsenseInfo(class_name, teacher_name, place, update_time, sign_type);
-                list.add(absenseInfo);
-            }
-            TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);
-            tableListView.setAdapter(adapter);
-        }catch(Exception e){}
-
+    protected void initTodayAbsenseInfo() {
+        String studentId = pref.getString("STUDENTID","");
+        Calendar calendar = Calendar.getInstance(); //获取系统的日期
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int day = calendar.get(Calendar.DATE);
+        RecordAsyncTask getQrAsyncTask1 = new RecordAsyncTask(MainActivity.serverUrl+recordUrl+
+                "?pageSize=10&page=0&student_no="+studentId+"&start_time="+ (year+"-"+month+"-"+day));
+        getQrAsyncTask1.execute();
     }
-
     private void searchAbsenseRecord(String date){
         String studentId = pref.getString("STUDENTID","");
         Log.d("lei","date = "+date);
@@ -257,8 +245,10 @@ public class AbsenseRecord extends AppCompatActivity {
                       Log.d("lei","receive refresh message");
                       List<AbsenseInfo> list  = (List<AbsenseInfo>)msg.obj;
                       if(list.size() != 0) {
+                          text_emptyview.setVisibility(View.GONE);
                           TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);
                           tableListView.setAdapter(adapter);
+                          tableListView.setEmptyView(text_emptyview);
                       }else{
                           text_emptyview.setVisibility(View.VISIBLE);
                           TableAdapter adapter = new TableAdapter(AbsenseRecord.this, list);

@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/backgroud1"
+    android:background="@mipmap/splashpicture"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/design_default_color_primary_dark"
+        android:background="@color/skyblue"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/aboutus_text"
-            android:textColor="@color/white"
+            android:textColor="@color/black_grey"
             android:textSize="20dp"
             android:text="河南寒武纪科技有限公司是一家集产品研发和营销为一体的创新型高科技企业。公司凭借雄厚的研发实力，强大的产品竞争力，丰富的市场资源，跻身于省内内最具品牌化、规模化的科技企业。"/>
 

@@ -148,7 +148,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onDataFailed() {
-                        Toast.makeText(LoginActivity.this, "加载失败！", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "登录失败！", Toast.LENGTH_SHORT).show();
                     }
                 });
                 loginAsyncTask.execute();

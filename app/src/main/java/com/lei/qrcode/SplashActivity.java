@@ -1,17 +1,28 @@
 package com.lei.qrcode;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import common.GetAsyncTask;
+import common.Utils;
+import okhttp3.internal.Util;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,6 +32,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         private Handler handler;
         private Runnable runnable;
         SharedPreferences pref;
+        private final String loginUrl = "/user/login";
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +43,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             //设置当前窗体为全屏显示
             getWindow().setFlags(flag, flag);
             setContentView(R.layout.activity_splash);
+
             initView();
             timer.schedule(task, 1000, 1000);//等待时间一秒，停顿时间一秒
             /**
@@ -50,13 +63,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
             String studentId = pref.getString("STUDENTID","");
             String password = pref.getString("PASSWORD","");
             Log.d("lei","studentId = "+studentId+"password = "+password);
-            if(studentId.length() != 0 && password.length() != 0){
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
+            if(studentId.length()>0 && password.length() > 0) {
+                Utils.start_Activity(SplashActivity.this, MainActivity.class);
             }else{
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
+                Utils.start_Activity(SplashActivity.this, LoginActivity.class);
             }
+            //Utils.start_Activity(SplashActivity.this, MainActivity.class);
             finish();
         }
 

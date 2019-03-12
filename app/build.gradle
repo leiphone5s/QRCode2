@@ -1,6 +1,15 @@
 apply plugin: 'com.android.application'
 
+
 android {
+    signingConfigs {
+        config {
+            keyAlias 'qrcode'
+            keyPassword '123456'
+            storeFile file('/media/lei/84414065-087e-4d7c-b2e7-7944a2c6c4cf/lei/workspace/studio-apps/QRCode/qrcode.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion compile_sdk_version
     defaultConfig {
         applicationId "com.yzq.zxing"
@@ -10,14 +19,23 @@ android {
         versionName version_name
         vectorDrawables.useSupportLibrary = true
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
+            signingConfig signingConfigs.config
         }
     }
-
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
     lintOptions {
 
         checkReleaseBuilds false
@@ -50,4 +68,9 @@ dependencies {
     implementation 'org.kie.modules:com-google-code-gson:6.5.0.Final'
     implementation 'org.xutils:xutils:3.5.0'
     implementation 'liji.library.dev:citypickerview:1.1.0'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.1'
+    implementation 'com.teprinciple:updateapputils:1.5.1'
+    implementation 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    implementation project(':MPChartLib')
 }

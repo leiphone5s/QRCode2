@@ -8,7 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lei.qrcode.LoginActivity;
@@ -16,12 +18,15 @@ import com.lei.qrcode.R;
 
 import java.io.File;
 
+import common.Utils;
 import utils.ACache;
 import utils.Globals;
 
 public class PersonalSettings extends AppCompatActivity implements View.OnClickListener{
 
-    private LinearLayout mSettingsPersonalInfo,mSettingsSecurity,mSettingsModifyPwd,mSettingsRemind,mSettingsLogout;
+    private Button btnExit;
+    private TextView settings_remind,settings_security,settings_modifypwd,settings_about,settings_info;
+    //private LinearLayout mSettingsPersonalInfo,mSettingsSecurity,mSettingsModifyPwd,mSettingsRemind,mSettingsLogout;
     private SharedPreferences login_sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +36,19 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
     }
 
     private void initView(){
-        mSettingsLogout=findViewById(R.id.settings_logout);
-        mSettingsPersonalInfo=findViewById(R.id.settings_personalinfo);
-        mSettingsRemind=findViewById(R.id.settings_remind);
-        mSettingsSecurity=findViewById(R.id.settings_security);
-        mSettingsModifyPwd=findViewById(R.id.settings_modifypwd);
+        btnExit=findViewById(R.id.btnexit);
+        settings_remind=findViewById(R.id.txt_msgtip);
+        settings_security=findViewById(R.id.txt_usersafe);
+        settings_modifypwd=findViewById(R.id.txt_modifypwd);
+        settings_about=findViewById(R.id.txt_about);
+        settings_info = findViewById(R.id.txt_personinfo);
 
-        mSettingsSecurity.setOnClickListener(this);
-        mSettingsRemind.setOnClickListener(this);
-        mSettingsPersonalInfo.setOnClickListener(this);
-        mSettingsModifyPwd.setOnClickListener(this);
-        mSettingsLogout.setOnClickListener(this);
+        btnExit.setOnClickListener(this);
+        settings_remind.setOnClickListener(this);
+        settings_security.setOnClickListener(this);
+        settings_modifypwd.setOnClickListener(this);
+        settings_about.setOnClickListener(this);
+        settings_info.setOnClickListener(this);
 
         login_sp = getSharedPreferences("userInfo", 0);
     }
@@ -52,22 +59,23 @@ public class PersonalSettings extends AppCompatActivity implements View.OnClickL
 
         Bitmap bitmap = null;
         switch (v.getId()) {
-            case R.id.settings_logout:
+            case R.id.btnexit:
                 showLogoutDialog();
                 break;
-            case R.id.settings_modifypwd:
-                Intent intent = new Intent(PersonalSettings.this, Resetpwd.class) ;    //切换Login Activity至User Activity
-                startActivity(intent);
+            case R.id.txt_modifypwd:
+                Utils.start_Activity(PersonalSettings.this, Resetpwd.class);
                 break;
-            case R.id.settings_personalinfo:
-                Intent i = new Intent(PersonalSettings.this, ModifyPersonalInfo.class) ;    //切换Login Activity至User Activity
-                startActivity(i);
+            case R.id.txt_personinfo:
+                Utils.start_Activity(PersonalSettings.this, ModifyPersonalInfo.class);
                 break;
-            case R.id.settings_remind:
+            case R.id.txt_msgtip:
                 Toast.makeText(this, "考勤提醒", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.settings_security:
+            case R.id.txt_usersafe:
                 Toast.makeText(this, "安全设置", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.txt_about:
+                Toast.makeText(this, "关于扫一扫", Toast.LENGTH_SHORT).show();
                 break;
             default:
         }

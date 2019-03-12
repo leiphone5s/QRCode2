@@ -1,7 +1,9 @@
 package com.lei.qrcode;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -9,6 +11,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +25,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +45,11 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import activity.AboutUs;
+import activity.AbsenseConstantActivity;
 import activity.AbsenseRecord;
+import activity.AbsenseWarn;
+import common.Utils;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
@@ -53,7 +62,7 @@ import utils.Globals;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button scanBtn;
+    private Button scanBtn,oneKeyBtn;
     private TextView qrcode;
     private EditText contentEt;
     private Button encodeBtn;
@@ -61,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toolbar toolbar;
     private int REQUEST_CODE_SCAN = 111;
     private String recordUrl = "/user/signlist";
-    public static String serverUrl = "http://192.168.137.215:7001";
+    //public static String serverUrl = "http://192.168.137.215:7001";
     //public static String serverUrl = "http://192.168.0.119:7001";
-    //public static String serverUrl = "http://47.105.138.71:80";
+    public static String serverUrl = "http://47.105.138.71:80";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     ImageView menu;
@@ -76,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String contentEtString;
     private long firstTime = 0;
     SharedPreferences main_pref;
+    LinearLayout qrContainerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,27 +94,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
     }
 
-    protected void initTodayRecord() {
-        String studentId = main_pref.getString("STUDENTID","");
-        Calendar calendar = Calendar.getInstance(); //获取系统的日期
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int day = calendar.get(Calendar.DATE);
-        GetQrAsyncTask getQrAsyncTask1 = new GetQrAsyncTask(MainActivity.serverUrl+recordUrl+
-                "?pageSize=10&page=0&student_no="+studentId+"&start_time="+ (year+"-"+month+"-"+day));
-        getQrAsyncTask1.execute();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        initTodayRecord();
-    }
 
     private void initView() {
+        // 检查有没有权限
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+            // 申请获取权限
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_CALENDAR,
+                            Manifest.permission.READ_CALENDAR}, 1);
+        }
+
         main_pref = getSharedPreferences("userInfo",MODE_PRIVATE);
         String studentId = main_pref.getString("STUDENTID","");
         boolean isTeacher = studentId.contains("6");
+        qrContainerLayout = findViewById(R.id.qrcode_container);
         /*扫描按钮*/
         scanBtn = findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
@@ -115,14 +119,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         contentEt = findViewById(R.id.contentEt);
         /*生成按钮*/
         encodeBtn = findViewById(R.id.encodeBtn);
+        oneKeyBtn =findViewById(R.id.oneKeySign);
         encodeBtn.setOnClickListener(this);
         /*生成的图片*/
         contentIv = findViewById(R.id.contentIv);
         if(isTeacher)
         {
+            qrContainerLayout.setVisibility(View.GONE);
             scanBtn.setVisibility(View.GONE);
-            qrcode.setText("一键签到");
-            qrcode.setOnClickListener(MySignListener);
+            qrcode.setVisibility(View.GONE);
+            oneKeyBtn.setVisibility(View.VISIBLE);
+            //qrcode.setText("一键签到");
+            oneKeyBtn.setOnClickListener(MySignListener);
         }
 //        toolbar = findViewById(R.id.toolbar);
 //
@@ -131,9 +139,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.activity_na);
-        navigationView = (NavigationView) findViewById(R.id.nav);
-        menu= (ImageView) findViewById(R.id.main_menu);
+        drawerLayout = findViewById(R.id.activity_na);
+        navigationView = findViewById(R.id.nav);
+        menu= findViewById(R.id.main_menu);
         View headerView = navigationView.getHeaderView(0);//获取头布局
         menu.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -142,28 +150,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch (item.getItemId()) {
 
                     case R.id.personsettings:
-                        Intent i = new Intent(MainActivity.this, PersonalSettings.class) ;    //切换Login Activity至User Activity
-                        startActivity(i);
+                        Utils.start_Activity(MainActivity.this,PersonalSettings.class);
                         break;
                     case R.id.aboutus:
-                        Intent intentToAboutUs = new Intent(MainActivity.this, activity.AboutUs.class) ;    //切换Login Activity至User Activity
-                        startActivity(intentToAboutUs);
+                        Utils.start_Activity(MainActivity.this, AboutUs.class);
                         break;
                     case R.id.absenserecord:
-                        Intent intentToAbsenseRecord = new Intent(MainActivity.this, activity.AbsenseRecord.class) ;    //切换Login Activity至User Activity
-                        startActivity(intentToAbsenseRecord);
+                        Utils.start_Activity(MainActivity.this, AbsenseRecord.class);
                         break;
                     case R.id.absensewarn:
-                        Intent intentToAbsenseWarn = new Intent(MainActivity.this, activity.AbsenseWarn.class) ;    //切换Login Activity至User Activity
-                        startActivity(intentToAbsenseWarn);
+                        Utils.start_Activity(MainActivity.this, AbsenseWarn.class);
                         break;
                     case R.id.absenseconstant:
-                        Intent intentToAbsenseConstant = new Intent(MainActivity.this, activity.AbsenseConstantActivity.class) ;    //切换Login Activity至User Activity
-                        startActivity(intentToAbsenseConstant);
+                        Utils.start_Activity(MainActivity.this, AbsenseConstantActivity.class);
                         break;
                 }
 
-                //Toast.makeText(MainActivity.this,item.getTitle().toString(),Toast.LENGTH_SHORT).show();
                 //drawerLayout.closeDrawer(navigationView);
                 return true;
             }
@@ -207,10 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 Uri packageURI = Uri.parse("package:" + getPackageName());
                                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageURI);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
                                 startActivity(intent);
-
-                                Toast.makeText(MainActivity.this, "没有权限无法扫描呦", Toast.LENGTH_LONG).show();
+                                Utils.showShortToast(MainActivity.this,"没有权限无法扫描呦");
                             }
                         }).start();
 
@@ -221,7 +221,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, "请输入要生成二维码图片的字符串", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
                 try {
                     bitmap = CodeCreator.createQRCode(contentEtString, 400, 400, null);
@@ -239,10 +238,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 contentEtString = contentEt.getText().toString().trim();
                 if (TextUtils.isEmpty(contentEtString)) {
-                    Toast.makeText(this, "请输入要生成二维码图片的字符串", Toast.LENGTH_SHORT).show();
+                    Utils.showShortToast(this,"请输入要生成二维码图片的字符串");
+                    //Toast.makeText(this, "请输入要生成二维码图片的字符串", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 bitmap = null;
                 try {
                     Bitmap logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -272,7 +271,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     View.OnClickListener MySignListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this,"签到成功～",Toast.LENGTH_SHORT).show();
+            //GetQrAsyncTask getQrAsyncTask = new GetQrAsyncTask(MainActivity.serverUrl+content+"?student_no="+studentid+"&class_no=1");
+            //getQrAsyncTask.execute();
+            Utils.showShortToast(MainActivity.this,"签到成功～");
         }
     };
 
@@ -283,9 +284,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 扫描二维码/条码回传
         if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK) {
             if (data != null) {
-
                 String content = data.getStringExtra(Constant.CODED_CONTENT);
-                GetQrAsyncTask getQrAsyncTask = new GetQrAsyncTask(MainActivity.serverUrl+content+"?student_no="+studentid+"&class_no=1");
+                Log.d("lei","content = "+content+" studentid = "+studentid+"");
+                GetQrAsyncTask getQrAsyncTask = new GetQrAsyncTask(MainActivity.serverUrl+content+"?student_no="+studentid+"&class_name=2");
                 getQrAsyncTask.execute();
             }
         }
@@ -304,7 +305,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
-
 
     private class GetQrAsyncTask extends AsyncTask<Void, Void, String> {
 
@@ -354,18 +354,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //服务器返回的数据
             try {
                 JSONObject jsonObject = new JSONObject(s);
-                if(jsonObject.getJSONArray("list")!=null && jsonObject.getJSONArray("list").length() != 0){
-                    ACache.get(MainActivity.this).remove(Globals.DAYRECORD);
-                    ACache.get(MainActivity.this).put(Globals.DAYRECORD,s);
-                }
+//                if(jsonObject.getJSONArray("list")!=null && jsonObject.getJSONArray("list").length() != 0){
+//                    ACache.get(MainActivity.this).remove(Globals.DAYRECORD);
+//                    ACache.get(MainActivity.this).put(Globals.DAYRECORD,s);
+//                }
                 String code = jsonObject.getString("code");
                 String msg = jsonObject.getString("msg");
                 String data = jsonObject.getString("data");
                 Log.d("lei","code = "+code+"  msg = "+msg+"  data = "+data);
-                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();//登录成功提示
-                //Log.d("lei","msg = "+msg+"   isFinish = "+(data.equals("true")));
-                //Toast.makeText(LoginActivity.this, getString(R.string.login_fail), Toast.LENGTH_SHORT).show();//登录成功提示
-
+                Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT).show();
+                //Utils.showShortToast(MainActivity.this,msg);
             }catch(Exception e){}
             super.onPostExecute(s);
         }
@@ -384,7 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(home);
                 return true;
             } else {
-                Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                Utils.showShortToast(MainActivity.this,"再按一次退出程序");
                 firstTime = System.currentTimeMillis();
             }
             return true;

@@ -4,8 +4,15 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.yuzhiqiang1993'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'qrcode'
+            keyPassword '123456'
+            storeFile file('/media/lei/84414065-087e-4d7c-b2e7-7944a2c6c4cf/lei/workspace/studio-apps/QRCode/qrcode.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion compile_sdk_version
-
     defaultConfig {
         minSdkVersion min_sdk_version
         targetSdkVersion target_sdk_version
@@ -13,8 +20,14 @@ android {
         versionName version_name
         vectorDrawables.useSupportLibrary = true
     }
-
-
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+        release {
+            signingConfig signingConfigs.config
+        }
+    }
 }
 
 dependencies {
@@ -24,5 +37,4 @@ dependencies {
     compileOnly "com.android.support:design:$android_support"
     compileOnly "com.android.support:support-v4:$android_support"
     compileOnly "com.android.support:support-vector-drawable:$android_support"
-
 }
